@@ -69,6 +69,6 @@ The screenshots folder contains:
 ## 👩‍💻 Author
 
 Neha Balkawade
-👉## 🌐 Live Website
+## 🚀 Live Project
 
-👉 [Open Website](http://13.232.xx.xx:3000)
+👉 [Open Website](http://cloud-cafe-alb-1221683718.ap-south-1.elb.amazonaws.com/)
