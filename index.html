@@ -1,0 +1,109 @@
+const http = require("http");
+const os = require("os");
+
+const hostname = os.hostname();
+
+const menu = [
+  "Espresso",
+  "Green Tea",
+  "Donut",
+  "Croissant",
+  "Cake",
+  "Pizza",
+  "Sandwich",
+  "Cold Coffee",
+  "Burger",
+  "Ice Cream"
+];
+
+function getMenu() {
+  return menu[Math.floor(Math.random() * menu.length)];
+}
+
+function getServer() {
+  if (hostname.includes("11-")) return "SERVER 1";
+  if (hostname.includes("39-")) return "SERVER 2";
+  return "SERVER";
+}
+
+http.createServer((req, res) => {
+
+  const item = getMenu();
+  const time = new Date().toLocaleString();
+
+  res.writeHead(200, {
+    "Content-Type": "text/html; charset=UTF-8"
+  });
+
+  res.end(`
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cloud Cafe</title>
+
+<meta http-equiv="refresh" content="2">
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  text-align:center;
+  background:#f4f4f4;
+  padding-top:80px;
+}
+
+.card{
+  width:450px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+h1{
+  color:#333;
+}
+
+.server{
+  color:green;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.menu{
+  color:orange;
+  font-size:30px;
+  margin:20px;
+}
+
+.time{
+  color:#666;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h1>☕ Cloud Cafe</h1>
+
+<h3>LIVE AWS LOAD BALANCED APP</h3>
+
+<div class="server">${getServer()}</div>
+
+<div class="menu">${item}</div>
+
+<div class="time">${time}</div>
+
+<p>Auto Refreshing Every 2 Seconds</p>
+
+</div>
+
+</body>
+</html>
+`);
+
+}).listen(3000, "0.0.0.0");
+
+console.log("Cloud Cafe running on port 3000");
